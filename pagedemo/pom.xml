@@ -1,0 +1,360 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.demo</groupId>
+	<artifactId>pagedemo</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>pagedemo Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.version>4.3.8.RELEASE</spring.version>
+		<junit.version>4.12</junit.version>
+		<mysql.driver.version>5.1.39</mysql.driver.version>
+		<mybatis.version>3.4.4</mybatis.version>
+		<log4j.version>1.2.17</log4j.version>
+		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<java.jwt.version>2.2.0</java.jwt.version>
+		<idiot.toolkit.version>1.0.0-SNAPSHOT</idiot.toolkit.version>
+	</properties>
+
+	<dependencies>
+		<!-- freemarker -->
+		<dependency>
+    		<groupId>org.freemarker</groupId>
+   		 	<artifactId>freemarker</artifactId>
+    		<version>2.3.23</version>
+		</dependency>
+		<!-- 二维码工具包 -->
+		<dependency>
+        	<groupId>com.google.zxing</groupId>
+        	<artifactId>core</artifactId>
+        	<version>3.1.0</version>
+   	 	</dependency>
+   	 	<dependency>
+        	<groupId>com.google.zxing</groupId>
+        	<artifactId>javase</artifactId>
+        	<version>3.1.0</version>
+   	 	</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>1.46</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>toolkits-group</groupId>
+			<artifactId>idiot-sprg-toolkit</artifactId>
+			<version>${idiot.toolkit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.10</artifactId>
+			<version>0.9.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<!-- pagehelper -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.1.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.driver.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<!-- C3P0 -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
+		</dependency>
+
+		<!-- MyBatis-Spring -->
+		<!-- 在整合MyBatis和Spring的时候要用到该Jar -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+
+		<!-- Spring JDBC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.3.8.RELEASE</version>
+		</dependency>
+
+		<!-- Spring TX -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>4.3.8.RELEASE</version>
+		</dependency>
+
+		<!-- @Inject -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<!-- poi组件 -->
+		<dependency>
+    		<groupId>org.apache.poi</groupId>
+    		<artifactId>poi-ooxml</artifactId>
+    		<version>3.17</version>
+		</dependency>
+		<dependency>
+ 		   <groupId>org.apache.poi</groupId>
+ 		   <artifactId>poi</artifactId>
+ 		   <version>3.17</version>
+		</dependency>
+		<dependency>
+    		<groupId>com.lowagie</groupId>
+   		 	<artifactId>itext</artifactId>
+   			 <version>2.1.7</version>
+		</dependency>
+<dependency>
+    <groupId>com.lowagie</groupId>
+    <artifactId>itext-rtf</artifactId>
+    <version>2.1.7</version>
+</dependency>
+<dependency>
+    <groupId>opensymphony</groupId>
+    <artifactId>xwork</artifactId>
+    <version>2.0.3</version>
+</dependency>
+		<!-- AOP -->
+		<!-- <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId> 
+			<version>1.6.10</version> </dependency> <dependency> <groupId>org.aspectj</groupId> 
+			<artifactId>aspectjweaver</artifactId> <version>1.8.10</version> </dependency> 
+			<dependency> <groupId>aopalliance</groupId> <artifactId>aopalliance</artifactId> 
+			<version>1.0</version> </dependency> <dependency> <groupId>cglib</groupId> 
+			<artifactId>cglib</artifactId> <version>2.2.2</version> </dependency> -->
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<!-- 文件上传 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+		<!-- Java Mail -->
+		<!-- <dependency> <groupId>javax.mail</groupId> <artifactId>mail</artifactId> 
+			<version>1.4.7</version> </dependency> -->
+
+		<!-- Spring Mail -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.3.8.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- Hibernate Validator -->
+		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-validator</artifactId> 
+			<version>5.2.4.Final</version> </dependency> -->
+
+		<!-- springmvc 构件 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.8.RELEASE</version>
+		</dependency>
+
+		<!-- 在MAVEN WEBAPP项目中需要导入javax.servlet.jsp-api和javax.servlet-api 否则，JSP编译将出错,即不能通过编译。 -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<!-- 目标容器已经提供了该构件，Provided表示该构件只会在编译和测试期间有效，运行期使用的是目标的相应构件 -->
+			<!-- 如果不指定scope为provided，那么这两个构件可能会和容器提供的相关构件冲突 -->
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/servlet-api -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>6.0.53</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<version>1.2</version>
+			<!-- <exclusions> <exclusion> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> 
+				</exclusion> <exclusion> <groupId>javax.servlet.jsp</groupId> <artifactId>jsp-api</artifactId> 
+				</exclusion> </exclusions> -->
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.5.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.4</version>
+		</dependency>
+
+		<!-- ehcache-core -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.4.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${java.jwt.version}</version>
+		</dependency>
+		<dependency>  
+    		<groupId>commons-fileupload</groupId>  
+    		<artifactId>commons-fileupload</artifactId>  
+    		<version>1.3</version>  
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>pagedemo</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
