@@ -12,6 +12,14 @@ public class BuilderEntity {
 	private final String sex;
 	private final String name;
 	
+	private BuilderEntity(Builder builder) {
+		this.age = builder.age;
+		this.number = builder.number;
+		this.height = builder.height;
+		this.sex = builder.sex;
+		this.name = builder.name;
+	}
+	
 	public static class Builder{
 		private final String name;
 		private final String sex;
@@ -37,14 +45,6 @@ public class BuilderEntity {
 		public BuilderEntity build() {
 			return new BuilderEntity(this);
 		}
-	}
-
-	private BuilderEntity(Builder builder) {
-		this.age = builder.age;
-		this.number = builder.number;
-		this.height = builder.height;
-		this.sex = builder.sex;
-		this.name = builder.name;
 	}
 
 	public int getAge() {
