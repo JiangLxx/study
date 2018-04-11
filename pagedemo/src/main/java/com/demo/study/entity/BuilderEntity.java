@@ -6,9 +6,9 @@ package com.demo.study.entity;
  *
  */
 public class BuilderEntity {
-	private final int age;
-	private final int number;
-	private final int height;
+	private int age;
+	private int number;
+	private int height;
 	private final String sex;
 	private final String name;
 	
