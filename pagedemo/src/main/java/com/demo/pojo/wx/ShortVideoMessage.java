@@ -5,7 +5,7 @@ package com.demo.pojo.wx;
  * @author jianglan @date 2018-04-28<br>
  * @version 1.0<br>
  */
-public class MiniVideoMessage extends VideoMessage {
+public class ShortVideoMessage extends VideoMessage {
 	/** 默认版本编号 **/
 	private static final long serialVersionUID = 1725312838078891661L;
 
