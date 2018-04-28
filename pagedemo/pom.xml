@@ -21,6 +21,12 @@
 	</properties>
 
 	<dependencies>
+		<!--  解决报错：java.lang.ClassNotFoundException: org.w3c.dom.ElementTraversal-->
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
+		</dependency>
 		<!--  加密工具类 -->
 		<dependency>
 			<groupId>commons-codec</groupId>
