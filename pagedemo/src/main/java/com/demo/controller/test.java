@@ -17,8 +17,6 @@ import com.demo.pojo.Student;
 @Controller
 public class test {
 	
-	
-	
 	@ResponseBody @RequestMapping("/testWx")
 	public void testWx() {
 		System.out.println("服务接通！！！！");
