@@ -16,6 +16,14 @@ import com.demo.pojo.Student;
 
 @Controller
 public class test {
+	
+	
+	
+	@ResponseBody @RequestMapping("/testWx")
+	public void testWx() {
+		System.out.println("服务接通！！！！");
+	 } 
+	
 	@ResponseBody @RequestMapping("/s")
 	public void saveUsers(@RequestBody Student student) {
 		System.out.println(student);
