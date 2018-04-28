@@ -21,7 +21,7 @@
 	</properties>
 
 	<dependencies>
-		<!--  解决报错：java.lang.ClassNotFoundException: org.w3c.dom.ElementTraversal-->
+		<!--  解决报错：java.lang.ClassNotFoundException: org.w3c.dom.ElementTraversal -->
 		<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>
