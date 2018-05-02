@@ -33,4 +33,11 @@
 	
 	<!-- 扫描指定包下的Controller -->
 	<context:component-scan base-package="com.demo.controller"></context:component-scan>
+	<!-- ************************************************拦截资源********************************************************** -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/wx/*"/>
+			<bean class="com.demo.interceptor.WxInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

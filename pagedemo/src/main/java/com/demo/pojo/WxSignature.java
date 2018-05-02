@@ -82,5 +82,4 @@ public class WxSignature implements Serializable {
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
-	
 }
