@@ -1,6 +1,6 @@
-package com.demo.pojo.wx;
+package com.demo.pojo.wx.req;
 
-import com.demo.pojo.wx.base.BaseMessage;
+import com.demo.pojo.wx.req.base.BaseMessage;
 
 /**
  * <p>微信请求消息之链接消息</p>

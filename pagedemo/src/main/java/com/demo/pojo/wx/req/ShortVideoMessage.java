@@ -1,4 +1,4 @@
-package com.demo.pojo.wx;
+package com.demo.pojo.wx.req;
 
 /**
  * <p>微信请求消息之小视频消息</p>

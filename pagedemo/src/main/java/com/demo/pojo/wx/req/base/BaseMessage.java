@@ -1,4 +1,4 @@
-package com.demo.pojo.wx.base;
+package com.demo.pojo.wx.req.base;
 
 import java.io.Serializable;
 
@@ -14,10 +14,10 @@ public class BaseMessage implements Serializable {
 	private long MsgId;
 	/** 消息类型 **/
 	private String MsgType; //图片：image 语音：voice 视频：video 小视频：shortvideo 地理位置：location 链接：link
-	/** 开发者微信号 **/
-	private String ToUserName;
 	/** 消息创建时间 (整型)**/
 	private long CreateTime;
+	/** 开发者微信号 **/
+	private String ToUserName;
 	/** 发送方账号，OPEN_ID **/
 	private String FromUserName;
 	
