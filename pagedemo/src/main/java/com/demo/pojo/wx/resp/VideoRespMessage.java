@@ -1,13 +1,13 @@
 package com.demo.pojo.wx.resp;
 
-import com.demo.pojo.wx.resp.base.BaseMessage;
+import com.demo.pojo.wx.resp.base.BaseRespMessage;
 
 /**
  * <p>微信响应消息之回复视频消息</p>
  * @author jianglan @date 2018-05-02<br>
  * @version 1.0<br>
  */
-public class VideoMessage extends BaseMessage {
+public class VideoRespMessage extends BaseRespMessage {
 	/** 默认版本编号 **/
 	private static final long serialVersionUID = -1159335508581469882L;
 	/** 媒体文件主键 **/

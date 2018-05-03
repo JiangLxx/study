@@ -1,13 +1,13 @@
 package com.demo.pojo.wx.resp;
 
-import com.demo.pojo.wx.resp.base.BaseMessage;
+import com.demo.pojo.wx.resp.base.BaseRespMessage;
 
 /**
  * <p>微信响应消息之回复文本消息</p>
  * @author jianglan @date 2018-05-02<br>
  * @version 1.0<br>
  */
-public class TextMessage extends BaseMessage {
+public class TextRespMessage extends BaseRespMessage {
 	/** 默认版本编号 **/
 	private static final long serialVersionUID = -309499921612703330L;
 	/** 回复的消息内容 **/

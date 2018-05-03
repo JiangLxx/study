@@ -2,14 +2,14 @@ package com.demo.pojo.wx.resp;
 
 import java.util.List;
 import com.demo.pojo.wx.resp.model.Article;
-import com.demo.pojo.wx.resp.base.BaseMessage;
+import com.demo.pojo.wx.resp.base.BaseRespMessage;
 
 /**
  * <p>微信响应消息之回复图文消息</p>
  * @author jianglan @date 2018-05-02<br>
  * @version 1.0<br>
  */
-public class NewsMessage extends BaseMessage {
+public class NewsRespMessage extends BaseRespMessage {
 	/** 默认版本编号 **/
 	private static final long serialVersionUID = 6702678660307853390L;
 	/** 图文消息个数 **/

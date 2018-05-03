@@ -1,13 +1,13 @@
 package com.demo.pojo.wx.req;
 
-import com.demo.pojo.wx.req.base.BaseMessage;
+import com.demo.pojo.wx.req.base.BaseReqMessage;
 
 /**
  * <p>微信请求消息之图片消息</p>
  * @author jianglan @date 2018-04-28<br>
  * @version 1.0<br>
  */
-public class ImageMessage extends BaseMessage {
+public class ImageReqMessage extends BaseReqMessage {
 	/** 默认版本编号 **/
 	private static final long serialVersionUID = 3763471185866124410L;
 	/** 图片链接 **/

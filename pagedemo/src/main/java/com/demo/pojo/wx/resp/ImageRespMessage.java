@@ -1,15 +1,15 @@
 package com.demo.pojo.wx.resp;
 
-import com.demo.pojo.wx.resp.base.BaseMessage;
+import com.demo.pojo.wx.resp.base.BaseRespMessage;
 
 /**
- * <p>微信响应消息之回复语音消息</p>
+ * <p>微信响应消息之回复图片消息</p>
  * @author jianglan @date 2018-05-02<br>
  * @version 1.0<br>
  */
-public class VoiceMessage extends BaseMessage {
+public class ImageRespMessage extends BaseRespMessage  {
 	/** 默认版本编号 **/
-	private static final long serialVersionUID = -4015353560480764502L;
+	private static final long serialVersionUID = 57656879914635274L;
 	/** 媒体文件主键 **/
 	private String MediaId;
 	

@@ -3,14 +3,18 @@ package com.demo.controller;
 import com.demo.pojo.WxSignature;
 import com.demo.utils.CommHelper;
 import com.demo.utils.wx.SignUtil2;
+import com.demo.service.ITestWxService;
 import com.demo.controller.wx.base.Action;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller @RequestMapping("/wx/check")
 public class TestWx extends Action {
+	@Autowired
+	private ITestWxService wxService;
 	/**
 	 * <p>微信签名验证</p>
 	 */
@@ -31,8 +35,8 @@ public class TestWx extends Action {
 	 * <p>微信消息处理</p>
 	 */
 	@ResponseBody @RequestMapping(method = RequestMethod.POST)
-	public void handleMessage(WxSignature sign) {
+	public String handleMessage(WxSignature sign) {
 		System.out.println(String.valueOf(getRequest()));
-		
+		return wxService.processRequest(getRequest());
 	}
 }

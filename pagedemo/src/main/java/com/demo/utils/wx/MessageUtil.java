@@ -9,12 +9,12 @@ import org.dom4j.Document;
 import java.io.InputStream;
 import org.dom4j.io.SAXReader;
 import com.thoughtworks.xstream.XStream;
-import com.demo.pojo.wx.resp.NewsMessage;
-import com.demo.pojo.wx.resp.TextMessage;
-import com.demo.pojo.wx.resp.ImageMessage;
-import com.demo.pojo.wx.resp.MusicMessage;
-import com.demo.pojo.wx.resp.VideoMessage;
-import com.demo.pojo.wx.resp.VoiceMessage;
+import com.demo.pojo.wx.resp.NewsRespMessage;
+import com.demo.pojo.wx.resp.TextRespMessage;
+import com.demo.pojo.wx.resp.ImageRespMessage;
+import com.demo.pojo.wx.resp.MusicRespMessage;
+import com.demo.pojo.wx.resp.VideoRespMessage;
+import com.demo.pojo.wx.resp.VoiceRespMessage;
 import com.demo.pojo.wx.resp.model.Article;
 import javax.servlet.http.HttpServletRequest;
 import com.thoughtworks.xstream.io.xml.XppDriver;
@@ -125,7 +125,7 @@ public final class MessageUtil {
 	 * @param textMessage 文本消息对象<br>
 	 * @return xml<br>
 	 */
-    public static String messageToXml(TextMessage textMessage) {
+    public static String messageToXml(TextRespMessage textMessage) {
         xstream.alias("xml", textMessage.getClass());
         return xstream.toXML(textMessage);
     }
@@ -135,7 +135,7 @@ public final class MessageUtil {
 	 * @param imageMessage 图片消息对象<br>
 	 * @return xml<br>
 	 */
-    public static String messageToXml(ImageMessage imageMessage) {
+    public static String messageToXml(ImageRespMessage imageMessage) {
         xstream.alias("xml", imageMessage.getClass());
         return xstream.toXML(imageMessage);
     }
@@ -145,7 +145,7 @@ public final class MessageUtil {
 	 * @param voiceMessage 语音消息对象<br>
 	 * @return xml<br>
 	 */
-    public static String messageToXml(VoiceMessage voiceMessage) {
+    public static String messageToXml(VoiceRespMessage voiceMessage) {
         xstream.alias("xml", voiceMessage.getClass());
         return xstream.toXML(voiceMessage);
     }
@@ -155,7 +155,7 @@ public final class MessageUtil {
 	 * @param videoMessage 视频消息对象<br>
 	 * @return xml<br>
 	 */
-    public static String messageToXml(VideoMessage videoMessage) {
+    public static String messageToXml(VideoRespMessage videoMessage) {
         xstream.alias("xml", videoMessage.getClass());
         return xstream.toXML(videoMessage);
     }
@@ -165,7 +165,7 @@ public final class MessageUtil {
 	 * @param musicMessage 音乐消息对象<br>
 	 * @return xml<br>
 	 */
-    public static String messageToXml(MusicMessage musicMessage) {
+    public static String messageToXml(MusicRespMessage musicMessage) {
         xstream.alias("xml", musicMessage.getClass());
         return xstream.toXML(musicMessage);
     }
@@ -175,7 +175,7 @@ public final class MessageUtil {
 	 * @param newsMessage 图文消息对象<br>
 	 * @return xml<br>
 	 */
-    public static String messageToXml(NewsMessage newsMessage) {
+    public static String messageToXml(NewsRespMessage newsMessage) {
         xstream.alias("xml", newsMessage.getClass());
         xstream.alias("item", new Article().getClass());
         return xstream.toXML(newsMessage);

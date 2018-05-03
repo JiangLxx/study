@@ -1,13 +1,13 @@
 package com.demo.pojo.wx.req;
 
-import com.demo.pojo.wx.req.base.BaseMessage;
+import com.demo.pojo.wx.req.base.BaseReqMessage;
 
 /**
  * <p>微信请求消息之地理位置消息</p>
  * @author jianglan @date 2018-04-28<br>
  * @version 1.0<br>
  */
-public class LocationMessage extends BaseMessage {
+public class LocationReqMessage extends BaseReqMessage {
 	/** 默认版本编号 **/
 	private static final long serialVersionUID = -5736687719704804115L;
 	/** 地图缩放大小 **/

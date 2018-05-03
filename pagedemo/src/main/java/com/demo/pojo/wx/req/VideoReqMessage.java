@@ -1,13 +1,13 @@
 package com.demo.pojo.wx.req;
 
-import com.demo.pojo.wx.req.base.BaseMessage;
+import com.demo.pojo.wx.req.base.BaseReqMessage;
 
 /**
  * <p>微信请求消息之视频消息</p>
  * @author jianglan @date 2018-04-28<br>
  * @version 1.0<br>
  */
-public class VideoMessage extends BaseMessage {
+public class VideoReqMessage extends BaseReqMessage {
 	/** 默认版本编号 **/
 	private static final long serialVersionUID = 636693912568091604L;
 	/** 视频消息媒体主键,可以调用多媒体文件下载接口拉取数据 **/

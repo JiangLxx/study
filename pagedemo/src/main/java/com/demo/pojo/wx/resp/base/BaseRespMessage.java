@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author jianglan @date 2018-05-02<br>
  * @version 1.0<br>
  */
-public class BaseMessage implements Serializable {
+public class BaseRespMessage implements Serializable {
 	/** 默认版本编号 **/
 	private static final long serialVersionUID = 5110791216930224742L;
 	/** 消息类型 **/

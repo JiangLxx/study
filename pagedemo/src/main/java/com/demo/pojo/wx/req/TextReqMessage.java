@@ -1,13 +1,13 @@
 package com.demo.pojo.wx.req;
 
-import com.demo.pojo.wx.req.base.BaseMessage;
+import com.demo.pojo.wx.req.base.BaseReqMessage;
 
 /**
  * <p>微信请求消息之文本消息</p>
  * @author jianglan @date 2018-04-28<br>
  * @version 1.0<br>
  */
-public class TextMessage extends BaseMessage {
+public class TextReqMessage extends BaseReqMessage {
 	/** 默认版本编号 **/
 	private static final long serialVersionUID = 8252688586063329689L;
 	/** 消息内容 **/
