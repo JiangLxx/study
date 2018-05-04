@@ -46,4 +46,15 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	<!-- url-pattern中配置的/coreServlet用于指定该Servlet的访问路径 -->
+	<servlet>
+        <servlet-name>testWxServlet</servlet-name>
+        <servlet-class>
+            com.demo.controller.TestWxServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>testWxServlet</servlet-name>
+        <url-pattern>/testWxServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
