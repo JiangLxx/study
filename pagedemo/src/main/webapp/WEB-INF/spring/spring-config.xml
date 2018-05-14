@@ -24,6 +24,4 @@
 	<!-- 引入 类路径下sring目录下spring相关配置-->
 	<import resource="classpath:spring/spring-dao.xml" />
 	<import resource="classpath:spring/spring-service.xml"/>
-	<!-- 引入 类路径下applicationContext目录下相关配置-->
-	<import resource="classpath:applicationContext/applicationContext-redis.xml"/>
 </beans>
