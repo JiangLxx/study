@@ -8,9 +8,25 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
-	
-    <context:property-placeholder location="classpath:jdbc.properties" />
-	
+	<!-- ************************************************读取资源文件******************************************************** -->
+    <!-- <context:property-placeholder location="classpath:jdbc.properties" /> -->
+    <!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations">
+    		<list>
+    			<value>classpath:jdbc.properties</value>
+    			<value>classpath:redis.properties</value>
+    		</list>
+    	</property>
+    </bean> -->
+    <bean class="com.frame.MyPropertyPlaceholderConfigurer">
+    	<property name="localeResource">
+			<list>
+				<value>classpath:jdbc.properties</value>
+    			<value>classpath:redis.properties</value>
+			</list>
+		</property>
+    </bean>
+	<!-- ************************************************配置jdbc连接******************************************************** -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <!-- 配置连接池属性 -->
         <property name="driverClass" value="${jdbc.driverClassName}" />
@@ -29,11 +45,77 @@
         <!-- 当获取连接失败重试次数 -->
         <property name="acquireRetryAttempts" value="2" />
     </bean>
-    
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:mybatis-config.xml" />
     </bean> 
+    <!-- ************************************************配置redis连接******************************************************** -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+    	<!-- 连接池中最大空闲的连接数 -->
+    	<property name="maxIdle" value="${redis.maxIdle}"/>
+    	<!-- 连接池中最大连接数。高版本：maxTotal,低版本：maxActive -->
+		<property name="maxTotal" value="${redis.maxTotal}"/>
+		<!-- 当连接池资源耗尽时，调用者最大阻塞的时间，超时将抛出异常。单位：毫秒数;默认为-1.表示永不超时。高版本：maxWaitMillis，低版本：maxWait -->
+		<property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+		<!-- testOnBorrow:向调用者输出“链接”资源时，是否检测是有有效，如果无效则从连接池中移除，并尝试获取继续获取。默认为false。建议保持默认值. -->
+		<property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+		<!-- testOnReturn:向连接池“归还”链接时，是否检测“链接”对象的有效性。默认为false。建议保持默认值.-->
+		<property name="testOnReturn" value="${redis.testOnReturn}"/>
+		<!-- 连接池中最少空闲的连接数. -->
+			<!-- <property name="minIdle" value="${redis.minIdle}" /> -->
+		<!-- 连接空闲的最小时间，达到此值后空闲连接将可能会被移除。负值(-1)表示不移除. -->
+			<!-- <property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}" /> -->
+		<!-- 对于“空闲链接”检测线程而言，每次检测的链接资源的个数。默认为3 -->
+			<!-- <property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}" /> -->
+		<!-- “空闲链接”检测线程，检测的周期，毫秒数。如果为负值，表示不运行“检测线程”。默认为-1. -->
+			<!-- <property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}" /> -->
+		<!-- testWhileIdle:向调用者输出“链接”对象时，是否检测它的空闲超时；默认为false。如果“链接”空闲超时，将会被移除。建议保持默认值. -->
+			<!-- <property name="testWhileIdle" value="${redis.testWhileIdle}"/> -->
+		<!-- whenExhaustedAction:当“连接池”中active数量达到阀值时，即“链接”资源耗尽时，连接池需要采取的手段, 默认为1(0:抛出异常。1:阻塞，直到有可用链接资源。2:强制创建新的链接资源) -->
+			<!-- <property name="whenExhaustedAction" value="${redis.whenExhaustedAction}"/> -->
+    </bean>
+    <!-- Spring提供的Redis连接工厂 -->
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<!-- 连接池配置. -->
+		<property name="poolConfig" ref="jedisPoolConfig" />
+		<!-- Redis服务主机. -->
+		<property name="hostName" value="${redis.host}"/>
+		<!-- Redis服务端口号. -->
+		<property name="port" value="${redis.port}"/>
+		<!-- Redis服务连接密码. -->
+		<property name="password" value="${redis.pass}"/>
+		<!-- 连超时设置. -->
+		<property name="timeout" value="${redis.timeout}"/>
+		<!-- 是否使用连接池. -->
+		<!-- <property name="usePool" value="true" /> -->
+        <!-- 选择redis第几库. -->
+        <property name="database" value="${redis.database}"/>
+	</bean>
+    <bean id="object_redis_template" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory"/>
+		<property name="keySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+		</property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+        </property>
+        <property name="hashKeySerializer">
+           <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="hashValueSerializer">
+           <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+        </property>
+	</bean>
+	<bean id="string_redis_template" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory"/>
+	</bean>
+	<!-- ************************************************工具实例声明配置******************************************************** -->
+	<bean id="string.redisHelper" class="com.frame.redis.impl.StringRedisHelperServiceImpl">
+		<property name="redisTemplate" ref="string_redis_template"/>
+	</bean>
+	<bean id="object.redisHelper" class="com.frame.redis.impl.ObjectRedisHelperServiceImpl">
+		<property name="redisTemplate" ref="object_redis_template"/>
+	</bean>
     
     <!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
