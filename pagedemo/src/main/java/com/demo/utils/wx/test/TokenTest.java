@@ -52,7 +52,7 @@ public class TokenTest {
      * @param outputStr 提交的数据<br>
      * @return JSONObject 返回数据<br>
      */
-	private static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr) {
+	public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr) {
 		JSONObject rtnObject = null;
         try {
         	// 创建SSLContext对象，并使用我们指定的信任管理器初始化

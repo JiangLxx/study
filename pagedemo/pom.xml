@@ -9,18 +9,30 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.3.8.RELEASE</spring.version>
 		<junit.version>4.12</junit.version>
-		<mysql.driver.version>5.1.39</mysql.driver.version>
-		<mybatis.version>3.4.4</mybatis.version>
 		<log4j.version>1.2.17</log4j.version>
-		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<mybatis.version>3.4.4</mybatis.version>
 		<java.jwt.version>2.2.0</java.jwt.version>
+		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<spring.version>4.3.8.RELEASE</spring.version>
+		<mysql.driver.version>5.1.39</mysql.driver.version>
+		<project.quartz.version>2.2.2</project.quartz.version>
 		<idiot.toolkit.version>1.0.0-SNAPSHOT</idiot.toolkit.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
+		<!-- java定时器 -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${project.quartz.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>${project.quartz.version}</version>
+		</dependency>
 		<!-- Java类到xml的转换 -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
