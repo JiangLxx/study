@@ -54,11 +54,10 @@ public class WeiXinUtil {
     }
     
     /**
-     * 获取access_token
-     * 
-     * @param appid 凭证
-     * @param appsecret 密钥
-     * @return
+     * <p>获取access_token</p>
+     * @param appid 凭证<br>
+     * @param appsecret 密钥<br>
+     * @return 微信Access_Token实体类 <br>
      */
     public static TokenResp getAccessToken(String appid, String appsecret) {
         String requestUrl = Constants.WX_ACCESS_TOKEN_URL.replace("APPID", appid).replace("APPSECRET", appsecret);
