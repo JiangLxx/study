@@ -25,6 +25,7 @@ public class GetWxAccessTokenQuartz extends BaseQuartz {
 		if(CommHelper.isNotNull(rtn)) {
 			if(rtn.containsKey("expires_in") && "7200".equalsIgnoreCase(rtn.getString("expires_in"))) {
 				getStringRedisLogicBean().set(Constants.WX_ACCESS_TOKEN, rtn.getString("access_token"));
+				System.out.println("当前Access_Token为：" + rtn.getString("access_token"));
 			}
 		}
 	}

@@ -18,7 +18,7 @@
     		</list>
     	</property>
     </bean> -->
-    <bean class="com.frame.MyPropertyPlaceholderConfigurer">
+    <bean class="com.frame.properties.MyPropertyPlaceholderConfigurer">
     	<property name="localeResource">
 			<list>
 				<value>classpath:jdbc.properties</value>
@@ -138,5 +138,6 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
         <property name="basePackage" value="com.demo.mapper" />
     </bean>
-
+	<!-- ************************************************工具声明********************************************************** -->
+	<bean class="com.idiot.spg.ContextHelper"/>
 </beans>
