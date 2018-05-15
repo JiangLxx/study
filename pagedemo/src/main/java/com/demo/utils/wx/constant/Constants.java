@@ -14,6 +14,8 @@ public final class Constants {
 	public final static String WX_ACCESS_TOKEN_GRANT_TYPE = "client_credential";
 	/** 第三方用户唯一凭证密钥 **/
 	public final static String WX_ACCESS_TOKEN_SECRET = "54a0da5352be54cff4f1505ab6e46c94";
-	/** 获取access_token请求链接 **/
-	public final static String WX_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token";
+	/** 菜单创建 POST 限100次/天 **/
+    public final static String MENU_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+    /** 获取access_token请求链接(GET 限200次/天) **/
+	public final static String WX_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 }
