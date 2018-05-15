@@ -72,6 +72,8 @@ public class MenuManager {
         btn14.setType("click");
         btn14.setKey("14");
 
+        
+        
         CommonButton btn21 = new CommonButton();
         btn21.setName("歌曲点播");
         btn21.setType("click");
@@ -97,6 +99,8 @@ public class MenuManager {
         btn25.setType("click");
         btn25.setKey("25");
 
+        
+        
         CommonButton btn31 = new CommonButton();
         btn31.setName("Q友圈");
         btn31.setType("click");

@@ -4,6 +4,7 @@ import java.net.URL;
 import org.slf4j.Logger;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.io.BufferedReader;
 import org.slf4j.LoggerFactory;
 import javax.net.ssl.SSLContext;
@@ -16,6 +17,8 @@ import javax.net.ssl.SSLSocketFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.demo.pojo.wx.model.TokenResp;
 import javax.net.ssl.HttpsURLConnection;
+
+import com.demo.pojo.wx.WeixinUserInfo;
 import com.demo.pojo.wx.button.base.Menu;
 import com.alibaba.fastjson.JSONException;
 import com.demo.utils.wx.constant.Constants;
@@ -142,27 +145,93 @@ public class WeiXinUtil {
         return rtnObject;
 	}
 	
+	/**
+     * <p>URL编码（utf-8）</p>
+     * @param source 参数<br>
+     * @return 转码后<br>
+     */
+    public static String urlEncodeUTF8(String source) {
+        String result = source;
+        try {
+            result = java.net.URLEncoder.encode(source, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    /**
+     * <p>根据内容类型判断文件扩展名</p>
+     * @param contentType 内容类型<br>
+     * @return 文件扩展名<br>
+     */
+    public static String getFileExt(String contentType) {
+        String fileExt = "";
+        if ("image/jpeg".equals(contentType))
+            fileExt = ".jpg";
+        else if ("audio/mpeg".equals(contentType))
+            fileExt = ".mp3";
+        else if ("audio/amr".equals(contentType))
+            fileExt = ".amr";
+        else if ("video/mp4".equals(contentType))
+            fileExt = ".mp4";
+        else if ("video/mpeg4".equals(contentType))
+            fileExt = ".mp4";
+        return fileExt;
+    }
+    
+    /**
+     * <p>获取用户信息</p>
+     * @param accessToken 接口访问凭证<br>
+     * @param openId 用户标识<br>
+     * @return 用户信息<br>
+     */
+    public static WeixinUserInfo getUserInfo(String accessToken, String openId) {
+        // 拼接请求地址
+        String requestUrl = Constants.WX_USERINFO_URL.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
+        // 获取用户信息
+        JSONObject jsonObject = httpsRequest(requestUrl, "GET", null); WeixinUserInfo weixinUserInfo = null;
+        
+        if (CommHelper.isNotNull(jsonObject)) {
+            try {
+                weixinUserInfo = new WeixinUserInfo();
+                // 用户的标识
+                weixinUserInfo.setOpenId(jsonObject.getString("openid"));
+                // 关注状态（1是关注，0是未关注），未关注时获取不到其余信息
+                weixinUserInfo.setSubscribe(jsonObject.getIntValue("subscribe"));
+                // 用户关注时间
+                weixinUserInfo.setSubscribeTime(jsonObject.getString("subscribe_time"));
+                // 昵称
+                weixinUserInfo.setNickname(jsonObject.getString("nickname"));
+                // 用户的性别（1是男性，2是女性，0是未知）
+                weixinUserInfo.setSex(jsonObject.getIntValue("sex"));
+                // 用户所在国家
+                weixinUserInfo.setCountry(jsonObject.getString("country"));
+                // 用户所在省份
+                weixinUserInfo.setProvince(jsonObject.getString("province"));
+                // 用户所在城市
+                weixinUserInfo.setCity(jsonObject.getString("city"));
+                // 用户的语言，简体中文为zh_CN
+                weixinUserInfo.setLanguage(jsonObject.getString("language"));
+                // 用户头像
+                weixinUserInfo.setHeadImgUrl(jsonObject.getString("headimgurl"));
+            } catch (Exception e) {
+                if (0 == weixinUserInfo.getSubscribe()) {
+                    log.error("用户{}已取消关注", weixinUserInfo.getOpenId());
+                } else {
+                    int errorCode = jsonObject.getIntValue("errcode");
+                    String errorMsg = jsonObject.getString("errmsg");
+                    log.error("获取用户信息失败 errcode:{} errmsg:{}", errorCode, errorMsg);
+                }
+            }
+        }
+        return weixinUserInfo;
+    }
+	
 	/** 测试 **/
 	public static void main(String[] args){
-		// 第三方用户唯一凭证
-		String appid = "wxb7f4a377c71a5f1a";
-		// 第三方用户唯一凭证密钥，即appsecret
-		String secret = "54a0da5352be54cff4f1505ab6e46c94";
-		// 获取access_token填写client_credential
-		String grant_type = "client_credential";
-		// 拼装请求链接
-		String tokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=" + grant_type + "&appid=" + appid + "&secret=" + secret;
-		System.err.println(tokenUrl);
-		
-		JSONObject rtn = httpsRequest(tokenUrl, "GET", null); TokenResp tokenResp = null;
-		//失败 {"errcode":40125,"errmsg":"invalid appsecret, view more at http:\/\/t.cn\/RAEkdVq hint: [EXUzia07273064]"}
-		//成功 {"access_token":"9_69XQCsaUsZT9gSHBs7cyWmA-vYMIx8npHCrK3qwMfNtOI3oleQrf5jq44dtIgJ0HiV8zdC-ys9C9OYlJVku-ZSp4S8PzA0sp88ZnkuY6Gpgh73riwULsZ0UaLFmqrdoItd4uiZlAXEyypVh8PTCgAIATXG","expires_in":7200}
-		if(CommHelper.isNotNull(rtn)) {
-			if(rtn.containsKey("expires_in") && "7200".equalsIgnoreCase(rtn.getString("expires_in"))) {
-				tokenResp = JSON.toJavaObject(rtn, TokenResp.class);
-			}
-		}
-		System.out.println("access__token : " + tokenResp.getAccess_token());
-		System.out.println("expires_in : " + tokenResp.getExpires_in());
+		TokenResp tokenResp = getAccessToken(Constants.WX_ACCESS_TOKEN_APPID, Constants.WX_ACCESS_TOKEN_SECRET);
+		WeixinUserInfo userInfo = getUserInfo(tokenResp.getAccess_token(), "oY1iZ1dMIQQDO1jB8xUDbHYRs1tI");
+		System.out.println(JSON.toJSONString(userInfo));
 	}
 }

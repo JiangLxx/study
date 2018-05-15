@@ -18,8 +18,14 @@ public final class Constants {
 //	public final static String WX_ACCESS_TOKEN_SECRET = "54a0da5352be54cff4f1505ab6e46c94";
 	/** 第三方用户唯一凭证密钥（测） **/
 	public final static String WX_ACCESS_TOKEN_SECRET = "8844e90fa3ec884aa51eb90533fbdcf9";
+    /** 菜单搜索 GET 限100次/天 **/
+    public final static String MENU_SEARCH_URL = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN";
+    /** 菜单删除 GET 限100次/天 **/
+    public final static String MENU_DELETE_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
 	/** 菜单创建 POST 限100次/天 **/
     public final static String MENU_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+    /** 获取用户信息请求链接 GET **/
+    public final static String WX_USERINFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
     /** 获取access_token请求链接(GET 限200次/天) **/
 	public final static String WX_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 }
