@@ -67,4 +67,14 @@
         <servlet-name>testWxServlet</servlet-name>
         <url-pattern>/testWxServlet</url-pattern>
     </servlet-mapping>
+    	<servlet>
+        <servlet-name>testOAuthServlet</servlet-name>
+        <servlet-class>
+            com.demo.controller.TestOAuthServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>testOAuthServlet</servlet-name>
+        <url-pattern>/testOAuthServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

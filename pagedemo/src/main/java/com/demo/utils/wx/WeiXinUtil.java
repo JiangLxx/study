@@ -13,7 +13,6 @@ import com.alibaba.fastjson.JSON;
 import com.demo.utils.CommHelper;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.SSLSocketFactory;
-import com.demo.pojo.wx.WeixinUserInfo;
 import com.alibaba.fastjson.JSONObject;
 import com.demo.pojo.wx.model.TokenResp;
 import javax.net.ssl.HttpsURLConnection;
@@ -21,6 +20,7 @@ import com.demo.pojo.wx.button.base.Menu;
 import com.alibaba.fastjson.JSONException;
 import com.demo.utils.wx.constant.Constants;
 import java.io.UnsupportedEncodingException;
+import com.demo.pojo.wx.authorization.WeixinUserInfo;
 
 /**
  * <p>获取微信token测试类</p>

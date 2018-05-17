@@ -1,21 +1,25 @@
 package com.demo.controller;
 
+import java.util.Map;
+import java.util.Date;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.Map;
-
 import com.demo.pojo.WxSignature;
-import com.demo.pojo.wx.resp.TextRespMessage;
-import com.demo.utils.wx.MessageUtil;
 import com.demo.utils.wx.SignUtil2;
+import com.demo.utils.wx.MessageUtil;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import com.demo.pojo.wx.resp.TextRespMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * <p>处理用户消息回复</p>
+ * @author jianglan @date 2018-05-15<br>
+ * @version 1.0<br>
+ */
 public class TestWxServlet extends HttpServlet {
-	
+	/** 默认版本编号 **/
 	private static final long serialVersionUID = 7443218762897787265L;
 	
 	/**
