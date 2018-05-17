@@ -24,8 +24,12 @@ public final class Constants {
     public final static String MENU_DELETE_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
 	/** 菜单创建 POST 限100次/天 **/
     public final static String MENU_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+    /** 通过网页授权获取用户信息(GET) **/
+	public final static String WX_GET_AUTHORIZATION_USER_INFO = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
     /** 获取用户信息请求链接 GET **/
     public final static String WX_USERINFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
     /** 获取access_token请求链接(GET 限200次/天) **/
 	public final static String WX_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+	/** 通过code换取网页授权access_token(GET) **/
+	public final static String WX_GET_AUTHORIZATION_TOKEN="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
 }
