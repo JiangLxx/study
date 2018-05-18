@@ -22,6 +22,17 @@
 	</properties>
 
 	<dependencies>
+		<!-- 工具包引入 -->
+		<dependency>
+			<groupId>toolkits-group</groupId>
+			<artifactId>idiot-sprg-toolkit</artifactId>
+			<version>${idiot.toolkit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>toolkits-group</groupId>
+			<artifactId>idiot-base-toolkit</artifactId>
+			<version>${idiot.toolkit.version}</version>
+		</dependency>
 		<!-- java定时器 -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -91,11 +102,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>toolkits-group</groupId>
-			<artifactId>idiot-sprg-toolkit</artifactId>
-			<version>${idiot.toolkit.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
