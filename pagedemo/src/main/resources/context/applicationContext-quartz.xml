@@ -8,8 +8,7 @@
 		<property name="jobClass" value="com.demo.quartz.GetWxAccessTokenQuartz"/>
 	</bean>
 	<bean id="getWxAccessTokenTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<!-- <property name="cronExpression" value="0 0/1 * * * ?"/> -->
-		<property name="cronExpression" value="0 */1 * * * ?"/>
+		<property name="cronExpression" value="0 0 0/1 * * ?"/>
 		<property name="jobDetail" ref="getWxAccessTokenDetail"/>
 	</bean>
 	<!-- *******************************************************************注册定时任务实例******************************************************************** -->

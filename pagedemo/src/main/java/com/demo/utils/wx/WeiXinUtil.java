@@ -1,7 +1,11 @@
 package com.demo.utils.wx;
 
 import java.net.URL;
+import java.util.Map;
+import java.util.UUID;
 import org.slf4j.Logger;
+import java.util.HashMap;
+import java.util.Formatter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.BufferedReader;
@@ -12,14 +16,22 @@ import java.io.InputStreamReader;
 import com.alibaba.fastjson.JSON;
 import com.demo.utils.CommHelper;
 import javax.net.ssl.TrustManager;
+import com.idiot.spg.ContextHelper;
+import com.idiot.utils.base.StringHelper;
+
+import java.security.MessageDigest;
 import javax.net.ssl.SSLSocketFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.demo.pojo.wx.model.TokenResp;
 import javax.net.ssl.HttpsURLConnection;
 import com.demo.pojo.wx.button.base.Menu;
 import com.alibaba.fastjson.JSONException;
-import com.demo.utils.wx.constant.Constants;
 import java.io.UnsupportedEncodingException;
+import com.demo.utils.wx.constant.Constants;
+import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
+import com.frame.redis.IObjectRedisHelperService;
+import com.frame.redis.IStringRedisHelperService;
 import com.demo.pojo.wx.authorization.WeixinUserInfo;
 
 /**
@@ -30,6 +42,32 @@ import com.demo.pojo.wx.authorization.WeixinUserInfo;
 public final class WeiXinUtil {
 	/** 获取日志实例 **/
 	private static Logger log = LoggerFactory.getLogger(WeiXinUtil.class);
+	/** 字符缓存实例 **/
+	private static IStringRedisHelperService stringRedisLogicBean = null;
+	/** 本站缓存实例 **/
+	private static IObjectRedisHelperService objectRedisLogicBean = null;
+	
+	/**
+	 * <p>获取公有缓存操作工具实例</p>
+	 * @return 公有缓存操作工具实例<br>
+	 */
+	public static IStringRedisHelperService getStringRedisLogicBean() {
+		if (CommHelper.isNull(stringRedisLogicBean)) {
+			stringRedisLogicBean = ContextHelper.getBean(IStringRedisHelperService.class);
+		}
+		return stringRedisLogicBean;
+	}
+	
+	/**
+	 * <p>获取私有缓存操作工具实例</p>
+	 * @return 公有缓存操作工具实例<br>
+	 */
+	public static IObjectRedisHelperService getObjectRedisLogicBean() {
+		if (CommHelper.isNull(objectRedisLogicBean)) {
+			objectRedisLogicBean = ContextHelper.getBean(IObjectRedisHelperService.class);
+		}
+		return objectRedisLogicBean;
+	}
 	
 	 /**
      * <p>创建菜单</p>
@@ -45,7 +83,7 @@ public final class WeiXinUtil {
         String jsonMenu = JSONObject.toJSONString(menu);
         // 调用接口创建菜单
         JSONObject jsonObject = httpsRequest(url, "POST", jsonMenu);
-        if (null != jsonObject) {
+        if (CommHelper.isNotNull(jsonObject)) {
             if (0 != jsonObject.getIntValue("errcode")) {
                 result = jsonObject.getIntValue("errcode");
                 log.error("创建菜单失败 errcode:{} errmsg:{}", jsonObject.getIntValue("errcode"), jsonObject.getString("errmsg"));
@@ -226,11 +264,80 @@ public final class WeiXinUtil {
         }
         return weixinUserInfo;
     }
+    
+    /**
+     * <p>获取微信配置信息</p>
+     * @param request 网络请求<br>
+     * @return 返回值含义<br>
+     */
+    public static Map<String, Object> getWxConfig(HttpServletRequest request){
+    	Map<String, Object> rtn = new HashMap<String, Object>();
+    	String access_token = "", jsapi_ticket = "", signature = "", url = "";
+    	String nonceStr = UUID.randomUUID().toString(); // 必填，生成签名的随机串
+    	String requestUrl = request.getRequestURL().toString();
+        String timestamp = Long.toString(System.currentTimeMillis() / 1000); // 必填，生成签名的时间戳
+    	
+        // 获取access_token
+        access_token = getStringRedisLogicBean().get(Constants.WX_ACCESS_TOKEN);
+        if(StringHelper.isEmpty(access_token)) {
+        	url = Constants.WX_ACCESS_TOKEN_URL.replace("APPID", Constants.WX_ACCESS_TOKEN_APPID).replace("APPSECRET", Constants.WX_ACCESS_TOKEN_SECRET);
+        	JSONObject atObj = httpsRequest(url, "GET", null);
+        	if(CommHelper.isNotNull(atObj)) {
+        		//要注意，access_token需要缓存
+                access_token = atObj.getString("access_token"); getStringRedisLogicBean().set(Constants.WX_ACCESS_TOKEN, access_token);
+        	}
+        } 
+        // 获取jsapi_ticket（有效期7200秒，开发者必须在自己的服务全局缓存jsapi_ticket
+        else {
+        	url = Constants.WX_GET_JSAPI_TICKET.replace("ACCESS_TOKEN", access_token);
+        	JSONObject jsapiTicket = httpsRequest(url, "GET", null);
+            if (CommHelper.isNotNull(jsapiTicket)) {
+                jsapi_ticket = jsapiTicket.getString("ticket");
+            }
+        }
+        
+    	// 注意这里参数名必须全部小写，且必须有序
+        String sign = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + nonceStr+ "&timestamp=" + timestamp + "&url=" + requestUrl;
+		try {
+			MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+			crypt.reset(); crypt.update(sign.getBytes("UTF-8"));
+	        signature = byteToHex(crypt.digest());
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		rtn.put("nonceStr", nonceStr);
+		rtn.put("timestamp", timestamp);
+		rtn.put("signature", signature);
+		rtn.put("appId", Constants.WX_ACCESS_TOKEN_APPID);
+		
+		return rtn;
+    }
+    
+    /**
+     * <p>字符串加密辅助方法</p>
+     * @param hash<br>
+     * @return 说明返回值含义<br>
+     * @throws 说明发生此异常的条件<br>
+      */
+     private static String byteToHex(final byte[] hash) {
+         Formatter formatter = new Formatter();
+         for (byte b : hash) {
+             formatter.format("%02x", b);
+         }
+         String result = formatter.toString();
+         formatter.close();
+         
+         return result;
+     }
 	
 	/** 测试 **/
 	public static void main(String[] args){
-		TokenResp tokenResp = getAccessToken(Constants.WX_ACCESS_TOKEN_APPID, Constants.WX_ACCESS_TOKEN_SECRET);
-		WeixinUserInfo userInfo = getUserInfo(tokenResp.getAccess_token(), "oY1iZ1dMIQQDO1jB8xUDbHYRs1tI");
-		System.out.println(JSON.toJSONString(userInfo));
+		WeiXinUtil.getAccessToken(Constants.WX_ACCESS_TOKEN_APPID, Constants.WX_ACCESS_TOKEN_SECRET);
+		
+//		TokenResp tokenResp = getAccessToken(Constants.WX_ACCESS_TOKEN_APPID, Constants.WX_ACCESS_TOKEN_SECRET);
+//		WeixinUserInfo userInfo = getUserInfo(tokenResp.getAccess_token(), "oY1iZ1dMIQQDO1jB8xUDbHYRs1tI");
+//		System.out.println(JSON.toJSONString(userInfo));
 	}
 }
