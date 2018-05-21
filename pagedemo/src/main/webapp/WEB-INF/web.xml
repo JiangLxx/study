@@ -104,9 +104,19 @@
     </servlet-mapping>
     <!-- **********************************************监听器配置区**************************************************** -->
 	<listener>
+		<description>日志监听实例配置</description>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
     </listener>
 	<listener>
+		<description>上下文配置加载监听器</description>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	    <listener>
+    	<description>防止内存溢出监听器</description>
+    	<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+    <listener>
+    	<description>Web容器周期监听器</description>
+    	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
 </web-app>
