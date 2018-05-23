@@ -10,6 +10,7 @@ public class TestMessageSource extends Action {
 	@RequestMapping("/message")
 	public void testMessageSource() {
 		System.out.println(getMessage("SMS0001", null));
-//		System.out.println(getMessage("SMS0001", new String[] {"oprt.search"}));
+		System.out.println(getMessage("SMS0001", new String[] {"hahah"}));
+		System.out.println(getMessage("SMS0001", new String[] {"oprt.search"}));
 	}
 }

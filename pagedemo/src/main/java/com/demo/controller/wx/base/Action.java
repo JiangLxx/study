@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import com.demo.utils.CommHelper;
 import com.demo.utils.wx.WeiXinUtil;
 import com.idiot.utils.base.StringHelper;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.MessageSource;
 
@@ -17,6 +19,7 @@ import org.springframework.context.MessageSource;
 public class Action {
 	/** 请求对象 **/
 	private HttpServletRequest request;
+	@Resource
 	private MessageSource messageSource;
 	/** 获取日志实例 **/
 	private static Logger logger = LoggerFactory.getLogger(WeiXinUtil.class);
