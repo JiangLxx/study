@@ -30,13 +30,22 @@
         <!-- 指定上传文件的临时路径 -->  
         <!-- <property name="uploadTempDir" value="uploadTempDirectory" /> -->  
     </bean>
-	
+    <!-- ************************************************多言配置********************************************************** -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message/commons</value>
+				<value>message/messages</value>
+				<value>message/application</value>
+			</list>
+		</property>
+	</bean>
 	<!-- 扫描指定包下的Controller -->
 	<context:component-scan base-package="com.demo.controller"></context:component-scan>
 	<!-- ************************************************拦截资源********************************************************** -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/wx/*"/>
+			<mvc:mapping path="/**"/>
 			<bean class="com.demo.interceptor.WxInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
